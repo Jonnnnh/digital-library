@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title th:text="${book.id != null} ? 'Edit Book' : 'Add Book'"></title>
+  <link rel="stylesheet" type="text/css" th:href="@{/common.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/book_forms.css}">
+</head>
+<body>
+
+<h1 th:text="${book.id != null} ? 'Edit Book' : 'Add Book'"></h1>
+
+<!-- Сообщение об ошибке -->
+<div th:if="${error}" class="error-message" th:text="${error}"></div>
+
+<!-- Указываем объект для формы -->
+<form th:action="@{/books}" th:object="${book}" method="post" enctype="multipart/form-data" class="form-container">
+
+  <!-- Поле для названия книги -->
+  <label for="title">Title</label>
+  <input type="text" id="title" th:field="*{title}" placeholder="Enter book title" required/>
+  <!-- Ошибка валидации для названия книги -->
+  <div th:if="${#fields.hasErrors('title')}" class="error-message">
+    <p th:errors="*{title}">Title Error</p>
+  </div>
+
+  <!-- Существующие авторы -->
+  <label for="author">Author</label>
+  <select id="author" th:field="*{author.id}">
+    <option value="" disabled selected>Select an author</option>
+    <option th:each="author : ${authors}" th:value="${author.id}"
+            th:text="${author.firstName + ' ' + author.lastName}"></option>
+  </select>
+  <!-- Ошибка валидации для автора -->
+  <div th:if="${#fields.hasErrors('author')}" class="error-message">
+    <p th:errors="*{author}">Author Error</p>
+  </div>
+  <a th:href="@{/authors/new}" class="btn add-author-btn">Add New Author</a>
+
+  <!-- Существующие жанры -->
+  <label for="genre">Genre</label>
+  <select id="genre" th:field="*{genre.id}">
+    <option value="" disabled selected>Select a genre</option>
+    <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}"></option>
+  </select>
+  <!-- Ошибка валидации для жанра -->
+  <div th:if="${#fields.hasErrors('genre')}" class="error-message">
+    <p th:errors="*{genre}">Genre Error</p>
+  </div>
+  <a th:href="@{/genres/new}" class="btn add-genre-btn">Add New Genre</a>
+
+  <!-- Описание книги -->
+  <label for="description">Description</label>
+  <textarea id="description" th:field="*{description}" placeholder="Enter book description"></textarea>
+  <!-- Ошибка валидации для описания -->
+  <div th:if="${#fields.hasErrors('description')}" class="error-message">
+    <p th:errors="*{description}">Description Error</p>
+  </div>
+
+  <!-- Путь к файлу книги -->
+  <label for="filePath">Book File (optional)</label>
+  <input type="file" id="filePath" th:field="*{filePath}" accept=".txt"/>
+  <!-- Ошибка валидации для файла -->
+  <div th:if="${#fields.hasErrors('filePath')}" class="error-message">
+    <p th:errors="*{filePath}">File Error</p>
+  </div>
+
+  <!-- Кнопка отправки формы -->
+  <button type="submit" class="btn save-btn" th:text="${book.id != null} ? 'Update Book' : 'Add Book'"></button>
+</form>
+
+<a th:href="@{/books}" class="btn back-btn">Back to Books</a>
+
+</body>
+</html>

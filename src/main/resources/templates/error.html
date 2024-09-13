@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Error</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/common.css}">
+</head>
+<body>
+<div class="error-container">
+    <h1>Error</h1>
+    <!-- Отображение текста ошибки -->
+    <p th:text="${error}">An error occurred while processing your request.</p>
+
+    <!-- Кнопка возврата к книгам -->
+    <a href="/books" class="btn back-btn">Go back to Books</a>
+</div>
+
+<div class="footer">
+    <p>Library Management System</p>
+</div>
+</body>
+</html>

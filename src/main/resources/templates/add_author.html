@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add New Author</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/add_authors.css}">
+</head>
+<body>
+
+<h1>Add New Author</h1>
+
+<form th:action="@{/authors}" method="post" class="form-container">
+    <label for="firstName">First Name</label>
+    <input type="text" id="firstName" name="firstName" placeholder="Enter first name" required/>
+
+    <label for="lastName">Last Name</label>
+    <input type="text" id="lastName" name="lastName" placeholder="Enter last name" required/>
+
+    <button type="submit" class="btn save-btn">Add Author</button>
+</form>
+
+<a th:href="@{/books/new}" class="btn back-btn">Back to Add Book</a>
+
+</body>
+</html>

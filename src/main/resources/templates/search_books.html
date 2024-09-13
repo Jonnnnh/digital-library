@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Search Books</title>
+  <link rel="stylesheet" th:href="@{/common.css}">
+</head>
+<body>
+<h1>Search Results</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Genre</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="book : ${books}">
+    <td th:text="${book.title}"></td>
+    <td th:text="${book.author.firstName + ' ' + book.author.lastName}"></td>
+    <td th:text="${book.genre.name}"></td>
+  </tr>
+  </tbody>
+</table>
+<a th:href="@{/books}">Back to Books</a>
+</body>
+</html>

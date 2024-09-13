@@ -1,0 +1,53 @@
+/* book_form.css */
+
+/* Контейнер для формы добавления/редактирования книги */
+.form-container {
+    width: 80%;
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Кнопки действия в форме */
+.save-btn {
+    width: 100%;
+    margin-top: 10px;
+    background-color: #28a745;
+}
+
+.save-btn:hover {
+    background-color: #218838;
+}
+
+.back-btn {
+    display: inline-block;
+    margin-top: 20px;
+    text-align: center;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.add-author-btn,
+.add-genre-btn {
+    margin-top: 10px;
+    display: inline-block;
+    background-color: #17a2b8;
+    text-decoration: none;
+    padding: 8px 15px;
+    color: white;
+    border-radius: 4px;
+}
+
+.add-author-btn:hover,
+.add-genre-btn:hover {
+    background-color: #138496;
+}

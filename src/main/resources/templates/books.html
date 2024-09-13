@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Books</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/books.css}">
+</head>
+<body>
+
+<h1>Books</h1>
+
+<!-- Форма поиска и кнопка добавления книги -->
+<div class="search-add-container">
+    <form th:action="@{/books}" method="get" class="search-form">
+        <input type="text" name="title" placeholder="Search by title" th:value="${title}" />
+        <select name="authorId">
+            <option value="" disabled selected>Select an author</option>
+            <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.firstName + ' ' + author.lastName}"></option>
+        </select>
+        <select name="genreId">
+            <option value="" disabled selected>Select a genre</option>
+            <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}"></option>
+        </select>
+        <button type="submit" class="btn search-btn">Search</button>
+        <a href="/books/new" class="btn add-btn">Add New Book</a>
+    </form>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Genre</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${books}">
+        <td th:text="${book.title}">Title</td>
+        <td><a th:href="@{/authors/{id}(id=${book.author.id})}" class="link" th:text="${book.author.firstName + ' ' + book.author.lastName}"></a></td>
+        <td><a th:href="@{/genres/{id}(id=${book.genre.id})}" class="link" th:text="${book.genre.name}"></a></td>
+        <td class="action-buttons">
+            <a class="btn details-btn" th:href="@{/books/{id}(id=${book.id})}">Details</a>
+            <a class="btn edit-btn" th:href="@{/books/edit/{id}(id=${book.id})}">Edit</a>
+            <form th:action="@{/books/{id}(id=${book.id})}" method="post" class="delete-form">
+                <input type="hidden" name="_method" value="delete"/>
+                <button type="submit" class="btn delete-btn">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="footer">
+    <p>Library Management System</p>
+</div>
+
+</body>
+</html>
