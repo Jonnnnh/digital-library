@@ -50,10 +50,10 @@ public class BookController {
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
-        model.addAttribute("book", new Book());  // Объект Book добавлен в модель
+        model.addAttribute("book", new Book());
         model.addAttribute("authors", authorService.getAllAuthors());
         model.addAttribute("genres", genreService.getAllGenres());
-        return "book_form";  // Имя шаблона
+        return "book_form";
     }
 
     @GetMapping("/edit/{id}")
@@ -68,7 +68,6 @@ public class BookController {
     @PostMapping
     public String saveOrUpdateBook(@ModelAttribute("book") @Valid Book book,
                                    BindingResult result,
-                                   @RequestParam(value = "filePath", required = false) MultipartFile file,
                                    Model model) {
         if (result.hasErrors()) {
             model.addAttribute("authors", authorService.getAllAuthors());
@@ -76,41 +75,14 @@ public class BookController {
             return "book_form";
         }
 
-        // Обработка файла, если он загружен
-        if (file != null && !file.isEmpty()) {
-            // Проверяем, что файл в формате .txt и его размер не превышает 2MB
-            if (!file.getContentType().equals("text/plain")) {
-                model.addAttribute("error", "Only .txt files are allowed.");
-                return "book_form";
-            }
-            if (file.getSize() > 2 * 1024 * 1024) { // 2MB
-                model.addAttribute("error", "File size must be less than 2MB.");
-                return "book_form";
-            }
-
-            try {
-                // Создаем директорию, если она не существует
-                String uploadDir = "uploads/";
-                File uploadDirFile = new File(uploadDir);
-                if (!uploadDirFile.exists()) {
-                    uploadDirFile.mkdirs();
-                }
-
-                // Сохраняем файл на диск
-                Path filePath = Paths.get(uploadDir, file.getOriginalFilename());
-                Files.write(filePath, file.getBytes());
-
-                // Устанавливаем путь к файлу в объект книги
-                book.setFilePath(filePath.toString());
-            } catch (IOException e) {
-                e.printStackTrace();
-                model.addAttribute("error", "Error saving file. Please try again.");
-                return "book_form";
-            }
-        }
-
-        // Сохранение книги
+        book.setFilePath("/files/temp.txt");
         bookService.save(book);
+
+        String filePath = "/files/book_" + book.getId() + ".txt";
+        book.setFilePath(filePath);
+
+        bookService.save(book);
+
         return "redirect:/books";
     }
 

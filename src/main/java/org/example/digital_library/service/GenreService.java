@@ -26,4 +26,8 @@ public class GenreService {
         Optional<Genre> genre = genreRepository.findById(id);
         return genre.orElseThrow(() -> new RuntimeException("Genre not found"));
     }
+
+    public List<Object[]> findMostPopularGenres() {
+        return genreRepository.findMostPopularGenres();
+    }
 }

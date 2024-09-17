@@ -24,13 +24,14 @@ public class GenreController {
         return "add_genre";
     }
 
+
     @PostMapping
     public String addGenre(@ModelAttribute("genre") @Valid Genre genre, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "add_genre";
         }
         genreService.createGenre(genre);
-        return "redirect:/books/new";  // Возвращаемся к форме создания книги
+        return "redirect:/books/new";
     }
 
     @GetMapping("/{id}")

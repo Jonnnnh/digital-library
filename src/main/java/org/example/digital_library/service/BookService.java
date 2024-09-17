@@ -37,6 +37,10 @@ public class BookService {
         }
     }
 
+    public long countBooks() {
+        return bookRepository.countBooks();
+    }
+
     public Book createBook(Book book) {
         return bookRepository.save(book);
     }

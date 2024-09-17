@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Library Statistics</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/common.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/statistics.css}">
+</head>
+<body>
+
+<div class="statistics-container">
+  <h1>Library Statistics</h1>
+
+  <div class="statistics-item">
+    <p>Total number of books:</p>
+    <span th:text="${totalBooks}"></span>
+  </div>
+
+  <div class="statistics-item">
+    <p>Most popular genre:</p>
+    <span th:text="${mostPopularGenre}"></span>
+  </div>
+
+  <div class="statistics-item">
+    <p>Most active user:</p>
+    <span th:text="${mostActiveUser}"></span>
+  </div>
+
+  <a href="/books" class="btn back-btn">Back to Books</a>
+</div>
+
+</body>
+</html>

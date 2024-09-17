@@ -1,5 +1,3 @@
-/* books.css */
-
 .search-add-container {
     width: 80%;
     margin: 10px auto;
@@ -22,7 +20,7 @@
     width: 100%;
 }
 
-.search-form button, .add-btn {
+.search-form button, .add-btn, .stats-btn {
     padding: 8px 10px;
     background-color: #28a745;
     color: white;
@@ -38,11 +36,11 @@
     text-decoration: none;
 }
 
-.add-btn {
+.add-btn, .stats-btn {
     text-align: center;
 }
 
-.search-form button:hover, .add-btn:hover {
+.search-form button:hover, .add-btn:hover, .stats-btn:hover {
     background-color: #218838;
 }
 

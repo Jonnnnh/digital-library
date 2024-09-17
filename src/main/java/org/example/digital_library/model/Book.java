@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 
 @Entity
 @Table(name = "books")
@@ -15,7 +17,7 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotNull(message = "Title cannot be null")
     private String title;
 
     @ManyToOne
@@ -29,5 +31,8 @@ public class Book {
     private String description;
 
     private String filePath;
+
+    @NotNull(message = "Published date cannot be null")
+    private LocalDate publishedDate;
 }
 

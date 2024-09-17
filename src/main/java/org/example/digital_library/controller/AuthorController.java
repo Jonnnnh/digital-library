@@ -30,7 +30,7 @@ public class AuthorController {
             return "add_author";
         }
         authorService.createAuthor(author);
-        return "redirect:/books/new";  // Возвращаемся к форме создания книги
+        return "redirect:/books/new";
     }
 
     @GetMapping("/{id}")
