@@ -1,10 +1,11 @@
-package org.example.digital_library.model;
+package org.example.digital_library.model.specification;
 
+import org.example.digital_library.model.entity.BookEntity;
 import org.springframework.data.jpa.domain.Specification;
 
 public class BookSpecification {
 
-    public static Specification<Book> hasTitle(String title) {
+    public static Specification<BookEntity> hasTitle(String title) {
         return (root, query, criteriaBuilder) -> {
             if (title == null || title.isEmpty()) {
                 return null;
@@ -13,7 +14,7 @@ public class BookSpecification {
         };
     }
 
-    public static Specification<Book> hasGenre(String genre) {
+    public static Specification<BookEntity> hasGenre(String genre) {
         return (root, query, criteriaBuilder) -> {
             if (genre == null || genre.isEmpty()) {
                 return null;
@@ -22,7 +23,7 @@ public class BookSpecification {
         };
     }
 
-    public static Specification<Book> hasAuthor(String authorLastName) {
+    public static Specification<BookEntity> hasAuthor(String authorLastName) {
         return (root, query, criteriaBuilder) -> {
             if (authorLastName == null || authorLastName.isEmpty()) {
                 return null;
@@ -31,4 +32,3 @@ public class BookSpecification {
         };
     }
 }
-

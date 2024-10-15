@@ -1,18 +1,18 @@
 package org.example.digital_library.controller;
 
+import lombok.AllArgsConstructor;
 import org.example.digital_library.service.StatisticsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@AllArgsConstructor
 @RequestMapping("/books")
 public class StatisticsController {
 
-    @Autowired
-    private StatisticsService statisticsService;
+    private final StatisticsService statisticsService;
 
     @GetMapping("/stats")
     public String showStatistics(Model model) {

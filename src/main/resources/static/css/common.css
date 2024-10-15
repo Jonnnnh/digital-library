@@ -30,7 +30,10 @@ label {
     margin-bottom: 10px;
 }
 
-input[type="text"], select, textarea {
+input[type="text"],
+input[type="password"],
+input[type="email"],
+select, textarea {
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
@@ -39,7 +42,7 @@ input[type="text"], select, textarea {
     box-sizing: border-box;
 }
 
-.save-btn, .back-btn {
+button {
     background-color: #007bff;
     color: white;
     text-decoration: none;
@@ -49,12 +52,11 @@ input[type="text"], select, textarea {
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
-    display: block;
-    width: fit-content;
-    margin: 20px auto;
+    width: 100%;
+    margin: 10px 0;
 }
 
-.save-btn:hover, .back-btn:hover {
+button:hover {
     background-color: #0056b3;
 }
 
@@ -80,17 +82,40 @@ input[type="text"], select, textarea {
     background-color: #333;
     color: white;
     width: 100%;
+    margin-top: auto;
 }
 
-/* Стили для страницы книги */
+/* Стили для страницы входа и регистрации */
+.login-form, .register-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
 
-.book-form h1 {
+.form-container {
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-container h1 {
     margin-bottom: 20px;
     font-size: 24px;
     color: #333;
 }
 
-.book-form .form-container {
-    box-shadow: none;
-    padding: 10px;
+/* Стили для ссылок */
+.register-link, .login-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }

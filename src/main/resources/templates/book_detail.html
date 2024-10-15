@@ -1,24 +1,56 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Book Details</title>
-  <link rel="stylesheet" type="text/css" th:href="@{/common.css}">
+    <title>Book Details</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+</head>
 <body>
 
 <h1 th:text="${book.title}">Book Detail</h1>
 
 <div class="book-detail">
-  <p><strong>Author:</strong> <span th:text="${book.author.firstName + ' ' + book.author.lastName}"></span></p>
-  <p><strong>Genre:</strong> <span th:text="${book.genre.name}"></span></p>
-  <p><strong>Description:</strong> <span th:text="${book.description}"></span></p>
+    <p><strong>Author:</strong> <span th:text="${book.author.firstName + ' ' + book.author.lastName}"></span></p>
+    <p><strong>Genre:</strong> <span th:text="${book.genre.name}"></span></p>
+    <p><strong>Description:</strong> <span th:text="${book.description}"></span></p>
+</div>
+
+<!-- Добавление закладки -->
+<form th:action="@{|/books/${book.id}/bookmark|}" th:object="${bookmark}" method="post">
+    <button type="submit">Add Bookmark</button>
+</form>
+<!-- Список существующих закладок для этой книги -->
+<div class="bookmarks">
+    <h2>Your Bookmarks</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Page Number</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="bookmark : ${bookmarks}">
+            <td th:text="${bookmark.pageNumber}">Page Number</td>
+            <td>
+                <!-- Удаление закладки -->
+                <form th:action="@{|/bookmarks/${bookmark.id}/delete|}" method="post"
+                      class="delete-form">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <button type="submit" class="btn delete-btn">Delete</button>
+                </form>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 <div class="back-btn-container">
-  <a th:href="@{/books}" class="btn back-btn">Back to Books</a>
+    <a th:href="@{/books}" class="btn back-btn">Back to Books</a>
 </div>
 
 <div class="footer">
-  <p>Library Management System</p>
+    <p>Library Management System</p>
 </div>
 
 </body>

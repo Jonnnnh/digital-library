@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="${book.id != null} ? 'Edit Book' : 'Add Book'"></title>
-    <link rel="stylesheet" type="text/css" th:href="@{/common.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/book_forms.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/book_forms.css}">
 </head>
 <body>
 
@@ -58,14 +58,6 @@
     <!-- Ошибка валидации для описания -->
     <div th:if="${#fields.hasErrors('description')}" class="error-message">
         <p th:errors="*{description}">Description Error</p>
-    </div>
-
-    <!-- Путь к файлу книги -->
-    <label for="filePath">Generated File Path</label>
-    <input type="text" id="filePath" th:value="${book.filePath}" readonly/>
-    <!-- Ошибка валидации для файла -->
-    <div th:if="${#fields.hasErrors('filePath')}" class="error-message">
-        <p th:errors="*{filePath}">File Error</p>
     </div>
 
     <!-- Кнопка отправки формы -->

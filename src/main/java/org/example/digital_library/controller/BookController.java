@@ -1,134 +1,103 @@
 package org.example.digital_library.controller;
 
 import jakarta.validation.Valid;
-import org.example.digital_library.model.Author;
-import org.example.digital_library.model.Genre;
-import org.example.digital_library.service.AuthorService;
-import org.example.digital_library.service.BookService;
-import org.example.digital_library.model.Book;
-import org.example.digital_library.service.GenreService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+
+import lombok.extern.slf4j.Slf4j;
+import org.example.digital_library.model.dto.*;
+import org.example.digital_library.service.*;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.multipart.MultipartFile;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.List;
 
-
 @Controller
+@AllArgsConstructor
+@Slf4j
 @RequestMapping("/books")
 public class BookController {
 
-    @Autowired
-    private BookService bookService;
-
-    @Autowired
-    private AuthorService authorService;
-
-    @Autowired
-    private GenreService genreService;
-
+    private final BookService bookService;
+    private final AuthorService authorService;
+    private final GenreService genreService;
+    private final UserService userService;
+    private final BookmarkService bookmarkService;
 
     @GetMapping
     public String getAllBooks(@RequestParam(required = false) String title,
                               @RequestParam(required = false) Long authorId,
                               @RequestParam(required = false) Long genreId,
                               Model model) {
-        List<Book> books = bookService.searchBooks(title, authorId, genreId);
+        List<BookDto> books = bookService.getAllBooks(title, authorId, genreId);
         model.addAttribute("books", books);
-        model.addAttribute("authors", authorService.getAllAuthors());
-        model.addAttribute("genres", genreService.getAllGenres());
+
+        List<AuthorDto> authors = authorService.getAllAuthors();
+        model.addAttribute("authors", authors);
+
+        List<GenreDto> genres = genreService.getAllGenres();
+        model.addAttribute("genres", genres);
+        if (genres == null || genres.isEmpty()) {
+            log.warn("Genres list is empty or null");
+        } else {
+            genres.forEach(genre -> log.info("Genre ID: {}, Name: {}", genre.getId(), genre.getName()));
+        }
+
+
+        model.addAttribute("title", title);
+        model.addAttribute("authorId", authorId);
+        model.addAttribute("genreId", genreId);
+
         return "books";
     }
 
+
     @GetMapping("/new")
     public String showCreateForm(Model model) {
-        model.addAttribute("book", new Book());
-        model.addAttribute("authors", authorService.getAllAuthors());
-        model.addAttribute("genres", genreService.getAllGenres());
-        return "book_form";
-    }
-
-    @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable Long id, Model model) {
-        Book book = bookService.getBookById(id);
-        model.addAttribute("book", book);
+        log.info("Opening form to create a new book");
+        model.addAttribute("book", new BookDto());
         model.addAttribute("authors", authorService.getAllAuthors());
         model.addAttribute("genres", genreService.getAllGenres());
         return "book_form";
     }
 
     @PostMapping
-    public String saveOrUpdateBook(@ModelAttribute("book") @Valid Book book,
+    public String saveOrUpdateBook(@ModelAttribute("book") @Valid BookDto bookDto,
                                    BindingResult result,
                                    Model model) {
         if (result.hasErrors()) {
+            log.warn("Validation failed for book with errors: {}", result.getAllErrors());
             model.addAttribute("authors", authorService.getAllAuthors());
             model.addAttribute("genres", genreService.getAllGenres());
             return "book_form";
         }
 
-        book.setFilePath("/files/temp.txt");
-        bookService.save(book);
-
-        String filePath = "/files/book_" + book.getId() + ".txt";
-        book.setFilePath(filePath);
-
-        bookService.save(book);
-
+        bookService.save(bookDto);
         return "redirect:/books";
-    }
-
-    @GetMapping("/authors")
-    public String getAllAuthors(Model model) {
-        List<Author> authors = authorService.getAllAuthors();
-        model.addAttribute("authors", authors);
-        return "author_details";
-    }
-
-    @GetMapping("/genres")
-    public String getAllGenres(Model model) {
-        List<Genre> genres = genreService.getAllGenres();
-        model.addAttribute("genres", genres);
-        return "genre_details";
     }
 
     @GetMapping("/{id}")
     public String getBookById(@PathVariable Long id, Model model) {
-        Book book = bookService.getBookById(id);
-        model.addAttribute("book", book);
+        log.info("Fetching details for book ID: {}", id);
+        BookDto bookDto = bookService.getBookById(id);
+        model.addAttribute("book", bookDto);
+        model.addAttribute("bookId", id);
         return "book_detail";
     }
 
     @DeleteMapping("/{id}")
     public String deleteBook(@PathVariable Long id, Model model) {
         try {
+            log.info("Deleting book with ID: {}", id);
             bookService.deleteBook(id);
         } catch (Exception e) {
+            log.error("Error deleting book with ID: {}", id, e);
             model.addAttribute("error", "An error occurred while deleting the book. Please try again.");
             return "books";
         }
         return "redirect:/books";
     }
-
-    @GetMapping("/search")
-    public String searchBooks(@RequestParam(required = false) String title,
-                              @RequestParam(required = false) Long genreId,
-                              @RequestParam(required = false) Long authorId,
-                              Model model) {
-        List<Book> books = bookService.searchBooks(title, authorId, genreId);
-        model.addAttribute("books", books);
-        model.addAttribute("authors", authorService.getAllAuthors());
-        model.addAttribute("genres", genreService.getAllGenres());
-        return "books";
-    }
-
 }
-

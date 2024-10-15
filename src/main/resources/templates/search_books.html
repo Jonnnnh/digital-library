@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Search Books</title>
-  <link rel="stylesheet" th:href="@{/common.css}">
+  <link rel="stylesheet" th:href="@{/css/common.css}">
 </head>
 <body>
 <h1>Search Results</h1>
@@ -15,7 +15,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr th:each="book : ${books}">
+  <tr th:each="book : ${book}">
     <td th:text="${book.title}"></td>
     <td th:text="${book.author.firstName + ' ' + book.author.lastName}"></td>
     <td th:text="${book.genre.name}"></td>

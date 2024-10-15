@@ -1,29 +1,39 @@
 package org.example.digital_library.service;
 
-import org.example.digital_library.model.Author;
+import lombok.AllArgsConstructor;
+import org.example.digital_library.mapper.AuthorMapper;
+import org.example.digital_library.model.dto.AuthorDto;
+import org.example.digital_library.model.entity.AuthorEntity;
 import org.example.digital_library.repository.AuthorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class AuthorService {
 
-    @Autowired
-    private AuthorRepository authorRepository;
+    private final AuthorRepository authorRepository;
 
-    public List<Author> getAllAuthors() {
-        return authorRepository.findAll();
+    private final AuthorMapper authorMapper = AuthorMapper.INSTANCE;
+
+    public List<AuthorDto> getAllAuthors() {
+        List<AuthorEntity> authorEntities = authorRepository.findAll();
+        return authorEntities.stream()
+                .map(authorMapper::toDto)
+                .collect(Collectors.toList());
     }
 
-    public Author getAuthorById(Long id) {
-        Optional<Author> author = authorRepository.findById(id);
-        return author.orElseThrow(() -> new RuntimeException("Author not found"));
+
+    public AuthorDto getAuthorById(Long id) {
+        AuthorEntity entity = authorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Author not found"));
+        return authorMapper.toDto(entity);
     }
 
-    public void createAuthor(Author author) {
-        authorRepository.save(author);
+    public void createAuthor(AuthorDto authorDto) {
+        AuthorEntity entity = authorMapper.toEntity(authorDto);
+        authorRepository.save(entity);
     }
 }

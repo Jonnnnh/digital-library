@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
+</head>
+<body>
+<header class="header">
+    <div class="user-info">
+        <!-- Используем переменную username, переданную через контроллер -->
+        <p th:if="${username != null}">
+            Logged in as: <span th:text="${username}">User</span>
+        </p>
+    </div>
+    <div class="auth-actions">
+        <!-- Логика для отображения кнопки "Logout", если пользователь авторизован -->
+        <form th:if="${username != null}" th:action="@{/logout}" method="post" class="logout-form">
+            <button type="submit" class="btn logout-btn">Logout</button>
+        </form>
+        <!-- Логика для отображения кнопки "Login", если пользователь не авторизован -->
+        <a th:if="${username == null}" th:href="@{/login}" class="btn login-btn">Login</a>
+    </div>
+</header>
+</body>
+</html>

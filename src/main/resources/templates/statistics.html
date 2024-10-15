@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Library Statistics</title>
-  <link rel="stylesheet" type="text/css" th:href="@{/common.css}">
-  <link rel="stylesheet" type="text/css" th:href="@{/statistics.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/statistics.css}">
 </head>
 <body>
 
@@ -11,12 +11,12 @@
   <h1>Library Statistics</h1>
 
   <div class="statistics-item">
-    <p>Total number of books:</p>
+    <p>Total number of bookDtos:</p>
     <span th:text="${totalBooks}"></span>
   </div>
 
   <div class="statistics-item">
-    <p>Most popular genre:</p>
+    <p>Most popular genreDto:</p>
     <span th:text="${mostPopularGenre}"></span>
   </div>
 
