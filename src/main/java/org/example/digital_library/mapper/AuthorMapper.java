@@ -2,8 +2,6 @@ package org.example.digital_library.mapper;
 
 import org.example.digital_library.model.dto.AuthorDto;
 import org.example.digital_library.model.entity.AuthorEntity;
-import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
 
 @Component

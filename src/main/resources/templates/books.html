@@ -49,7 +49,6 @@
     <tr th:each="book : ${books}">
         <td th:text="${book.title}">Title</td>
 
-        <!-- Проверка на наличие автора -->
         <td th:if="${book.author != null}">
             <a th:href="@{/authors/{id}(id=${book.author.id})}" th:text="${book.author.firstName + ' ' + book.author.lastName}"></a>
         </td>
@@ -57,7 +56,6 @@
             <span>Unknown Author</span>
         </td>
 
-        <!-- Проверка на наличие жанра -->
         <td th:if="${book.genre != null}">
             <a th:href="@{/genres/{id}(id=${book.genre.id})}" th:text="${book.genre.name}">Genre</a>
         </td>
@@ -65,7 +63,6 @@
             <span>No Genre</span>
         </td>
 
-        <!-- Действия -->
         <td class="action-buttons">
             <a class="btn details-btn" th:href="@{/books/{id}(id=${book.id})}">Details</a>
             <a class="btn edit-btn" th:href="@{/books/edit/{id}(id=${book.id})}">Edit</a>

@@ -11,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -91,11 +89,15 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public String getBookById(@PathVariable Long id, Model model) {
+    public String getBookById(@PathVariable Long id, Authentication authentication, Model model) {
         log.info("Fetching details for book ID: {}", id);
         BookDto bookDto = bookService.getBookById(id);
         model.addAttribute("book", bookDto);
         model.addAttribute("bookId", id);
+        model.addAttribute("bookmark", new BookmarkDto());
+        UserDto userDto = userService.findUserByUsername(authentication.getName());
+        List<BookmarkDto> bookmarks = bookmarkService.getUserBookmarksForBook(id, userDto.getId());
+        model.addAttribute("bookmarks", bookmarks);
         return "book_detail";
     }
 

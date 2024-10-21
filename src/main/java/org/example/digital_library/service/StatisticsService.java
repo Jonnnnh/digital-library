@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import org.example.digital_library.repository.BookRepository;
 import org.example.digital_library.repository.GenreRepository;
 import org.example.digital_library.repository.UserRepository;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Controller
 @AllArgsConstructor
 public class StatisticsService {
 

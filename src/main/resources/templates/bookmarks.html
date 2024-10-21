@@ -17,10 +17,10 @@
     </thead>
     <tbody>
     <tr th:each="bookmark : ${bookmarks}">
-        <td><a th:href="@{/books/{id}(id=${bookmark.book.id})}" th:text="${bookmark.book.title}"></a></td>
+        <td><a th:href="@{/books/{id}(id=${bookmark.bookId})}" th:text="${bookmark.bookId}"></a></td>
         <td th:text="${bookmark.pageNumber}">Page Number</td>
         <td>
-            <form th:action="@{/bookmarks/{id}(id=${bookmark.id})}" method="post" class="delete-form">
+        <td><a th:href="@{/books/{id}(id=${bookmark.bookId})}" th:text="${bookmark.bookTitle}"></a></td>
                 <input type="hidden" name="_method" value="delete"/>
                 <button type="submit" class="btn delete-btn">Delete</button>
             </form>

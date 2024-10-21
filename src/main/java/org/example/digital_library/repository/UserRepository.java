@@ -9,8 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
-    boolean existsByUsername(String username);
-    boolean existsByEmail(String email);
     @Query("SELECT u.username FROM UserEntity u JOIN BookmarkEntity b ON u.id = b.user.id GROUP BY u.username ORDER BY COUNT(b) DESC")
     String findMostActiveUser();
     Optional<UserEntity> findByUsername(String username);

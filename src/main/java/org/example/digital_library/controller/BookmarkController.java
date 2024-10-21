@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -20,9 +21,6 @@ import java.time.LocalDateTime;
 @RequestMapping("/bookmarks")
 public class BookmarkController {
 
-    private final BookService bookService;
-    private final AuthorService authorService;
-    private final GenreService genreService;
     private final UserService userService;
     private final BookmarkService bookmarkService;
 
@@ -45,34 +43,51 @@ public class BookmarkController {
             model.addAttribute("bookId", bookId);
             return "bookmark_form";
         }
-
         String username = authentication.getName();
         log.info("Adding bookmark for user: {}", username);
 
         UserDto userDto = userService.findUserByUsername(username);
-
+        if (userDto == null) {
+            log.error("User not found with username: {}", username);
+            model.addAttribute("error", "User not found.");
+            return "error";
+        }
         bookmarkDto.setBookId(bookId);
         bookmarkDto.setUser(userDto);
         bookmarkDto.setCreateAt(LocalDateTime.now());
 
         log.info("Saving bookmark for book ID: {} and user ID: {}", bookId, userDto.getId());
         bookmarkService.addBookmark(bookmarkDto);
-
         return "redirect:/books/" + bookId;
     }
 
+    @GetMapping("/user")
+    public String getUserBookmarks(Authentication authentication, Model model) {
+        String username = authentication.getName();
+        log.info("Fetching bookmarks for user: {}", username);
+        UserDto userDto = userService.findUserByUsername(username);
+        if (userDto == null) {
+            log.error("User not found with username: {}", username);
+            model.addAttribute("error", "User not found");
+            return "error";
+        }
+
+        List<BookmarkDto> bookmarks = bookmarkService.getUserBookmarks(userDto.getId());
+        model.addAttribute("bookmarks", bookmarks);
+        return "bookmarks";
+    }
 
     @DeleteMapping("/{bookmarkId}/delete")
-    public String deleteBookmark(@PathVariable Long bookmarkId, Model model) {
+    public String deleteBookmark(@PathVariable Long bookmarkId, @RequestParam Long bookId, Model model) {
         try {
             log.info("Deleting bookmark with ID: {}", bookmarkId);
             bookmarkService.deleteBookmark(bookmarkId);
         } catch (Exception e) {
             log.error("Error deleting bookmark with ID: {}", bookmarkId, e);
-            model.addAttribute("error", "An error occurred while deleting the bookmark. Please try again.");
+            model.addAttribute("error", "An error occurred while deleting the bookmark. Please try again");
             return "error";
         }
-        return "redirect:/bookmarks";
+        return "redirect:/books/" + bookId;
     }
 
 }

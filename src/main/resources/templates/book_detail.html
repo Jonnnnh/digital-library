@@ -14,9 +14,12 @@
     <p><strong>Description:</strong> <span th:text="${book.description}"></span></p>
 </div>
 
-<form th:action="@{|/books/${book.id}/bookmark|}" th:object="${bookmark}" method="post">
+<form th:action="@{/bookmarks/{bookId}/bookmark(bookId=${book.id})}" th:object="${bookmark}" method="post">
+    <label for="pageNumber">Page Number:</label>
+    <input type="number" id="pageNumber" th:field="*{pageNumber}" min="1" required/>
     <button type="submit">Add Bookmark</button>
 </form>
+
 <div class="bookmarks">
     <h2>Your Bookmarks</h2>
     <table>
@@ -30,9 +33,8 @@
         <tr th:each="bookmark : ${bookmarks}">
             <td th:text="${bookmark.pageNumber}">Page Number</td>
             <td>
-                <form th:action="@{|/bookmarks/${bookmark.id}/delete|}" method="post"
-                      class="delete-form">
-                    <input type="hidden" name="_method" value="delete"/>
+                <form th:action="@{/bookmarks/{bookmarkId}/delete(bookmarkId=${bookmark.id}, bookId=${book.id})}" method="post">
+                <input type="hidden" name="_method" value="delete"/>
                     <button type="submit" class="btn delete-btn">Delete</button>
                 </form>
 
