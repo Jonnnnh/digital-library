@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Add Bookmark</title>
-  <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <title>Add Bookmark</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
 </head>
 <body>
 <h1>Add Bookmark for Book</h1>
 
 <form th:action="@{/books/{bookId}/bookmark}" th:object="${bookmark}" method="post">
-  <label for="pageNumber">Page Number:</label>
-  <input type="number" id="pageNumber" th:field="*{pageNumber}" min="1" required/>
+    <label for="pageNumber">Page Number:</label>
+    <input type="number" id="pageNumber" th:field="*{pageNumber}" min="1" required/>
 
-  <button type="submit">Add Bookmark</button>
+    <button type="submit">Add Bookmark</button>
 </form>
 
 <a th:href="@{|/books/${bookId}|}">Back to Book Details</a>

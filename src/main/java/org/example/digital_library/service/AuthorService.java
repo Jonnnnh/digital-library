@@ -1,6 +1,7 @@
 package org.example.digital_library.service;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.digital_library.mapper.AuthorMapper;
 import org.example.digital_library.model.dto.AuthorDto;
 import org.example.digital_library.model.entity.AuthorEntity;
@@ -10,13 +11,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class AuthorService {
 
     private final AuthorRepository authorRepository;
-
-    private final AuthorMapper authorMapper = AuthorMapper.INSTANCE;
+    private final AuthorMapper authorMapper;
 
     public List<AuthorDto> getAllAuthors() {
         List<AuthorEntity> authorEntities = authorRepository.findAll();
@@ -29,6 +30,7 @@ public class AuthorService {
     public AuthorDto getAuthorById(Long id) {
         AuthorEntity entity = authorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Author not found"));
+        log.info("AuthorEntity details: {} {}", entity.getFirstName(), entity.getLastName());
         return authorMapper.toDto(entity);
     }
 

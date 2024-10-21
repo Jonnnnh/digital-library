@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-  <title>Genre Details</title>
-  <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <title>Genre Details</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
 </head>
 <body>
 
 <h1>Genre Details</h1>
 
 <div class="genre-detail">
-  <p><strong>Genre Name:</strong> <span th:text="${genre.name}"></span></p>
+    <p><strong>Genre Name:</strong> <span th:text="${genre.name}"></span></p>
 </div>
 
 <a th:href="@{/books}" class="btn back-btn">Back to Books</a>
 
 <div class="footer">
-  <p>Library Management System</p>
+    <p>Library Management System</p>
 </div>
 
 </body>

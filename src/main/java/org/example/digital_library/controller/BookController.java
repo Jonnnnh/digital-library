@@ -33,9 +33,21 @@ public class BookController {
                               @RequestParam(required = false) Long genreId,
                               Model model) {
         List<BookDto> books = bookService.getAllBooks(title, authorId, genreId);
+        books.forEach(book -> {
+            if (book.getAuthor() != null) {
+                log.info("Book: {}, Author: {} {}", book.getTitle(), book.getAuthor().getFirstName(), book.getAuthor().getLastName());
+            } else {
+                log.warn("Book: {} has no author", book.getTitle());
+            }
+        });
         model.addAttribute("books", books);
 
         List<AuthorDto> authors = authorService.getAllAuthors();
+        if (authors == null || authors.isEmpty()) {
+            log.warn("No authors retrieved from the service.");
+        } else {
+            authors.forEach(author -> log.info("Author: {} {}", author.getFirstName(), author.getLastName()));
+        }
         model.addAttribute("authors", authors);
 
         List<GenreDto> genres = genreService.getAllGenres();

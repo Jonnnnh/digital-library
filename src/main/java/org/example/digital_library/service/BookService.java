@@ -1,6 +1,7 @@
 package org.example.digital_library.service;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.digital_library.mapper.BookMapper;
 import org.example.digital_library.model.dto.BookDto;
 import org.example.digital_library.model.entity.AuthorEntity;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @AllArgsConstructor
 @Service
 public class BookService {
@@ -22,19 +24,29 @@ public class BookService {
     private AuthorRepository authorRepository;
     private GenreRepository genreRepository;
 
-    private final BookMapper bookMapper = BookMapper.INSTANCE;
+    private final BookMapper bookMapper = new BookMapper();
 
     public List<BookDto> getAllBooks(String title, Long authorId, Long genreId) {
         List<BookEntity> books = bookRepository.findBooks(title, authorId, genreId);
+        books.forEach(book -> {
+            if (book.getAuthor() != null) {
+                log.info("Book Author Entity: {}", book.getAuthor());
+                log.info("Bookk: {}, Author: {} {}", book.getTitle(), book.getAuthor().getFirstName(), book.getAuthor().getLastName());
+            } else {
+                log.warn("Bookk: {} has no author", book.getTitle());
+            }
+        });
         return books.stream()
-                .map(BookMapper.INSTANCE::toDto)
+                .map(bookMapper::toDto)
                 .collect(Collectors.toList());
     }
 
 
+
     public BookDto getBookById(Long id) {
         BookEntity bookEntity = bookRepository.findById(id).orElseThrow(() -> new RuntimeException("Book not found"));
-        return BookMapper.INSTANCE.toDto(bookEntity);
+        log.info("Book Author Entity: {}", bookEntity.getAuthor());
+        return bookMapper.toDto(bookEntity);
     }
 
     public void save(BookDto bookDto) {
@@ -43,7 +55,7 @@ public class BookService {
         AuthorEntity authorEntity = authorRepository.findById(bookDto.getAuthor().getId())
                 .orElseThrow(() -> new RuntimeException("Author not found"));
 
-        BookEntity bookEntity = BookMapper.INSTANCE.toEntity(bookDto);
+        BookEntity bookEntity = bookMapper.toEntity(bookDto);
         bookEntity.setGenre(genreEntity);
         bookEntity.setAuthor(authorEntity);
 

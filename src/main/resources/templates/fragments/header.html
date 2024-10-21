@@ -7,25 +7,21 @@
 <body>
 <header class="header">
     <div class="user-info">
-        <!-- Используем переменную username, переданную через контроллер -->
         <p th:if="${username != null}">
             Logged in as: <span th:text="${username}">User</span>
         </p>
     </div>
 
     <div class="nav-actions">
-        <!-- Ссылки на добавление книги, статистику и закладки -->
         <a href="/books/new" class="btn add-btn">Add New Book</a>
         <a href="/books/stats" class="btn stats-btn">View Statistics</a>
         <a href="/bookmarks" class="btn bookmarks-btn">View My Bookmarks</a>
     </div>
 
     <div class="auth-actions">
-        <!-- Логика для отображения кнопки "Logout", если пользователь авторизован -->
         <form th:if="${username != null}" th:action="@{/logout}" method="post" class="logout-form">
             <button type="submit" class="btn logout-btn">Logout</button>
         </form>
-        <!-- Логика для отображения кнопки "Login", если пользователь не авторизован -->
         <a th:if="${username == null}" th:href="@{/login}" class="btn login-btn">Login</a>
     </div>
 </header>

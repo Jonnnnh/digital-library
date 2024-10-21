@@ -2,6 +2,7 @@ package org.example.digital_library.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.digital_library.model.dto.AuthorDto;
 import org.example.digital_library.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 @AllArgsConstructor
 @RequestMapping("/authors")
@@ -37,6 +39,11 @@ public class AuthorController {
     @GetMapping("/{id}")
     public String getAuthorById(@PathVariable Long id, Model model) {
         AuthorDto authorDto = authorService.getAuthorById(id);
+        if (authorDto == null) {
+            log.warn("Author with ID {} not found", id);
+            return "error";
+        }
+        log.info("Author details: {} {}", authorDto.getFirstName(), authorDto.getLastName());
         model.addAttribute("author", authorDto);
         return "author_details";
     }

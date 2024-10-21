@@ -7,7 +7,6 @@
 <body>
 <h1>Register</h1>
 
-<!-- Форма регистрации -->
 <form th:action="@{/users/register}" th:object="${user}" method="post" class="form-container">
   <label for="username">Username:</label>
   <input type="text" id="username" th:field="*{username}" placeholder="Enter username" required/>
@@ -30,7 +29,6 @@
   <button type="submit" class="btn register-btn">Register</button>
 </form>
 
-<!-- Ссылка на страницу входа -->
 <div class="login-link">
   <p>Already have an account? <a th:href="@{/login}">Login here</a></p>
 </div>

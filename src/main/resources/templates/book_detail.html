@@ -14,11 +14,9 @@
     <p><strong>Description:</strong> <span th:text="${book.description}"></span></p>
 </div>
 
-<!-- Добавление закладки -->
 <form th:action="@{|/books/${book.id}/bookmark|}" th:object="${bookmark}" method="post">
     <button type="submit">Add Bookmark</button>
 </form>
-<!-- Список существующих закладок для этой книги -->
 <div class="bookmarks">
     <h2>Your Bookmarks</h2>
     <table>
@@ -32,7 +30,6 @@
         <tr th:each="bookmark : ${bookmarks}">
             <td th:text="${bookmark.pageNumber}">Page Number</td>
             <td>
-                <!-- Удаление закладки -->
                 <form th:action="@{|/bookmarks/${bookmark.id}/delete|}" method="post"
                       class="delete-form">
                     <input type="hidden" name="_method" value="delete"/>
