@@ -8,30 +8,32 @@
 </head>
 <body>
 
-<div th:replace="~{fragments/header :: header}"></div>
+<div th:replace="~{fragments/header :: header(username=${username})}"></div>
 
-<h1>Books</h1>
+<h1 style="text-align: center;">Books</h1>
 
-<!-- Форма поиска и кнопка добавления книги -->
+<!-- Форма поиска -->
 <div class="search-add-container">
     <form th:action="@{/books}" method="get" class="search-form">
-        <input type="text" name="title" placeholder="Search by title" th:value="${title}"/>
-        <select name="authorId">
-            <option value="" disabled selected>Select an author</option>
-            <option th:each="author : ${authors}" th:value="${author.id}"
-                    th:text="${author.firstName + ' ' + author.lastName}"></option>
-        </select>
+        <label>
+            <input type="text" name="title" placeholder="Search by title" th:value="${title}"/>
+        </label>
+        <label>
+            <select name="authorId">
+                <option value="" disabled selected>Select an author</option>
+                <option th:each="author : ${authors}" th:value="${author.id}"
+                        th:text="${author.firstName + ' ' + author.lastName}"></option>
+            </select>
+        </label>
 
-        <select name="genreId">
-            <option value="" disabled selected>Select a genre</option>
-            <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}">
-                <!-- Genre: [[${genre.name}]] -->
-            </option>
-        </select>
+        <label>
+            <select name="genreId">
+                <option value="" disabled selected>Select a genre</option>
+                <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}">
+                </option>
+            </select>
+        </label>
         <button type="submit" class="btn search-btn">Search</button>
-        <a href="/books/new" class="btn add-btn">Add New Book</a>
-        <a href="/books/stats" class="btn stats-btn">View Statistics</a>
-        <a href="/bookmarks" class="btn view-bookmarks-btn">View My Bookmarks</a>
     </form>
 </div>
 
@@ -50,7 +52,7 @@
 
         <!-- Проверка на наличие автора -->
         <td th:if="${book.author != null}">
-            <span th:text="${book.author.firstName + ' ' + book.author.lastName}"></span>
+            <a th:href="@{/authors/{id}(id=${book.author.id})}" th:text="${book.author.firstName + ' ' + book.author.lastName}"></a>
         </td>
         <td th:if="${book.author == null}">
             <span>Unknown Author</span>
@@ -59,9 +61,10 @@
         <!-- Проверка на наличие жанра -->
         <td th:if="${book.genre != null}">
             <a th:href="@{/genres/{id}(id=${book.genre.id})}" th:text="${book.genre.name}">Genre</a>
-            <!-- Genre: [[${book.genre.name}]] -->
         </td>
-
+        <td th:if="${book.genre == null}">
+            <span>No Genre</span>
+        </td>
 
         <!-- Действия -->
         <td class="action-buttons">

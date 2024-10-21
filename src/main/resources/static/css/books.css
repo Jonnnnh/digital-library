@@ -20,7 +20,7 @@
     width: 100%;
 }
 
-.search-form button, .add-btn, .stats-btn {
+.search-form button {
     padding: 8px 10px;
     background-color: #28a745;
     color: white;
@@ -36,11 +36,7 @@
     text-decoration: none;
 }
 
-.add-btn, .stats-btn {
-    text-align: center;
-}
-
-.search-form button:hover, .add-btn:hover, .stats-btn:hover {
+.search-form button:hover {
     background-color: #218838;
 }
 
@@ -116,4 +112,18 @@ table thead th {
 
 .delete-btn:hover {
     background-color: #c82333;
+}
+
+/* Центрирование заголовка */
+h1 {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Стили для заголовка таблицы */
+table thead th {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: left;
 }

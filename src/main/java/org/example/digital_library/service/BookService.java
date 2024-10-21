@@ -2,7 +2,6 @@ package org.example.digital_library.service;
 
 import lombok.AllArgsConstructor;
 import org.example.digital_library.mapper.BookMapper;
-import org.example.digital_library.model.domain.Book;
 import org.example.digital_library.model.dto.BookDto;
 import org.example.digital_library.model.entity.AuthorEntity;
 import org.example.digital_library.model.entity.BookEntity;
@@ -28,14 +27,14 @@ public class BookService {
     public List<BookDto> getAllBooks(String title, Long authorId, Long genreId) {
         List<BookEntity> books = bookRepository.findBooks(title, authorId, genreId);
         return books.stream()
-                .map(BookMapper.INSTANCE::bookEntityToBookDto)
+                .map(BookMapper.INSTANCE::toDto)
                 .collect(Collectors.toList());
     }
 
 
     public BookDto getBookById(Long id) {
         BookEntity bookEntity = bookRepository.findById(id).orElseThrow(() -> new RuntimeException("Book not found"));
-        return BookMapper.INSTANCE.bookEntityToBookDto(bookEntity);
+        return BookMapper.INSTANCE.toDto(bookEntity);
     }
 
     public void save(BookDto bookDto) {
@@ -44,7 +43,7 @@ public class BookService {
         AuthorEntity authorEntity = authorRepository.findById(bookDto.getAuthor().getId())
                 .orElseThrow(() -> new RuntimeException("Author not found"));
 
-        BookEntity bookEntity = BookMapper.INSTANCE.bookDtoToBookEntity(bookDto);
+        BookEntity bookEntity = BookMapper.INSTANCE.toEntity(bookDto);
         bookEntity.setGenre(genreEntity);
         bookEntity.setAuthor(authorEntity);
 

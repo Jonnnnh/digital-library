@@ -2,7 +2,7 @@
     background-color: #f8f9fa;
     padding: 10px 20px;
     display: flex;
-    justify-content: flex-end; /* Выравниваем весь контент вправо */
+    justify-content: space-between; /* Выравнивание кнопок и информации о пользователе */
     align-items: center;
     border-bottom: 1px solid #ddd;
 }
@@ -15,14 +15,14 @@
 
 .auth-actions {
     display: flex;
-    align-items: center;
+    gap: 10px; /* Добавляем промежуток между кнопками */
 }
 
-.logout-form, .login-btn {
+.logout-form, .login-btn, .bookmarks-btn, .stats-btn, .add-btn {
     margin: 0;
 }
 
-.logout-btn, .login-btn {
+.logout-btn, .login-btn, .bookmarks-btn, .stats-btn, .add-btn {
     background-color: #007bff;
     color: white;
     padding: 6px 12px;
@@ -30,8 +30,16 @@
     border-radius: 4px;
     cursor: pointer;
     text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
 }
 
-.logout-btn:hover, .login-btn:hover {
+.logout-btn:hover, .login-btn:hover, .bookmarks-btn:hover, .stats-btn:hover, .add-btn:hover {
     background-color: #0056b3;
+}
+
+/* Центрирование заголовка в шапке */
+h1 {
+    text-align: center;
+    margin: 20px 0;
 }

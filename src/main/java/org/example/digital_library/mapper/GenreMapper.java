@@ -7,15 +7,14 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
-public interface GenreMapper {
+public interface GenreMapper extends BaseMapper<GenreEntity, GenreDto> {
+
     GenreMapper INSTANCE = Mappers.getMapper(GenreMapper.class);
 
+    @Override
     GenreDto toDto(GenreEntity genreEntity);
 
-    GenreEntity toEntity(Genre genre);
-
-    Genre toDomain(GenreEntity genreEntity);
-
+    @Override
     GenreEntity toEntity(GenreDto genreDto);
 
 }

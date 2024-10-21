@@ -54,7 +54,6 @@ public class BookController {
         return "books";
     }
 
-
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         log.info("Opening form to create a new book");
