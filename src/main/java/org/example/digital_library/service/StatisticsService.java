@@ -28,6 +28,7 @@ public class StatisticsService {
     }
 
     public String getMostActiveUser() {
-        return userRepository.findMostActiveUser();
+        List<String> mostActiveUsers = userRepository.findMostActiveUsers();
+        return mostActiveUsers.isEmpty() ? "No active users" : mostActiveUsers.get(0);
     }
 }

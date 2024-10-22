@@ -2,37 +2,45 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Your Bookmarks</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bookmarks.css}">
 </head>
 <body>
-<h1>Your Bookmarks</h1>
 
-<table>
-    <thead>
-    <tr>
-        <th>Book</th>
-        <th>Page Number</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="bookmark : ${bookmarks}">
-        <td><a th:href="@{/books/{id}(id=${bookmark.bookId})}" th:text="${bookmark.bookId}"></a></td>
-        <td th:text="${bookmark.pageNumber}">Page Number</td>
-        <td>
-        <td><a th:href="@{/books/{id}(id=${bookmark.bookId})}" th:text="${bookmark.bookTitle}"></a></td>
-                <input type="hidden" name="_method" value="delete"/>
-                <button type="submit" class="btn delete-btn">Delete</button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div class="container">
+    <h1>Your Bookmarks</h1>
 
-<a th:href="@{/books}" class="btn back-btn">Back to Books</a>
+    <table class="bookmark-table">
+        <thead>
+        <tr>
+            <th>Book ID</th>
+            <th>Title</th>
+            <th>Page Number</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="bookmark : ${bookmarks}">
+            <td><a th:href="@{/books/{id}(id=${bookmark.bookId})}" th:text="${bookmark.bookId}"></a></td>
+            <td><a th:href="@{/books/{id}(id=${bookmark.bookId})}" th:text="${bookmark.bookTitle}"></a></td>
+            <td th:text="${bookmark.pageNumber}">Page Number</td>
+            <td>
+                <form th:action="@{/bookmarks/{bookmarkId}/delete(bookmarkId=${bookmark.id}, bookId=${bookmark.bookId})}" method="post" class="action-form">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <button type="submit" class="btn delete-btn">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="back-btn-container">
+        <a th:href="@{/books}" class="btn back-btn">Back to Books</a>
+    </div>
+</div>
 
 <div class="footer">
     <p>Library Management System</p>
 </div>
+
 </body>
 </html>

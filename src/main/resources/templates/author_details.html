@@ -6,15 +6,17 @@
 </head>
 <body>
 
-<h1>Author Details</h1>
+<div class="container">
+    <h1>Author Details</h1>
 
-<div class="author-detail">
-    <p><strong>First Name:</strong> <span th:text="${author.firstName}"></span></p>
-    <p><strong>Last Name:</strong> <span th:text="${author.lastName}"></span></p>
-    <p><strong>Birth Date:</strong> <span th:text="${author.birthDate}"></span></p>
+    <div class="detail-info">
+        <p><strong>First Name:</strong> <span th:text="${author.firstName}"></span></p>
+        <p><strong>Last Name:</strong> <span th:text="${author.lastName}"></span></p>
+        <p><strong>Birth Date:</strong> <span th:text="${author.birthDate}"></span></p>
+    </div>
+
+    <a th:href="@{/books}" class="btn back-btn">Back to Books</a>
 </div>
-
-<a th:href="@{/books}" class="btn back-btn">Back to Books</a>
 
 <div class="footer">
     <p>Library Management System</p>

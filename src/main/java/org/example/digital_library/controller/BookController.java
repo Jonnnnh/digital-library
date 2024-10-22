@@ -84,8 +84,31 @@ public class BookController {
             return "book_form";
         }
 
+        if (bookDto.getId() != null) {
+            log.info("Updating book with ID: {}", bookDto.getId());
+        } else {
+            log.info("Creating new book");
+        }
+
         bookService.save(bookDto);
         return "redirect:/books";
+    }
+
+
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        log.info("Opening form to edit book with ID: {}", id);
+        BookDto bookDto = bookService.getBookById(id);
+        if (bookDto == null) {
+            log.error("Book with ID: {} not found", id);
+            model.addAttribute("error", "Book not found");
+            return "redirect:/books";
+        }
+
+        model.addAttribute("book", bookDto);
+        model.addAttribute("authors", authorService.getAllAuthors());
+        model.addAttribute("genres", genreService.getAllGenres());
+        return "book_form";
     }
 
     @GetMapping("/{id}")
@@ -108,7 +131,7 @@ public class BookController {
             bookService.deleteBook(id);
         } catch (Exception e) {
             log.error("Error deleting book with ID: {}", id, e);
-            model.addAttribute("error", "An error occurred while deleting the book. Please try again.");
+            model.addAttribute("error", "An error occurred while deleting the book. Please try again");
             return "books";
         }
         return "redirect:/books";

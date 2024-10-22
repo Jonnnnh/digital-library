@@ -12,6 +12,7 @@ import org.example.digital_library.repository.AuthorRepository;
 import org.example.digital_library.repository.GenreRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,15 +56,26 @@ public class BookService {
         AuthorEntity authorEntity = authorRepository.findById(bookDto.getAuthor().getId())
                 .orElseThrow(() -> new RuntimeException("Author not found"));
 
-        BookEntity bookEntity = bookMapper.toEntity(bookDto);
+        BookEntity bookEntity;
+
+        if (bookDto.getId() != null) {
+            bookEntity = bookRepository.findById(bookDto.getId())
+                    .orElseThrow(() -> new RuntimeException("Book not found"));
+        } else {
+            bookEntity = new BookEntity();
+
+            String filePath = "/files/book_" + (bookRepository.count() + 1) + ".pdf";
+            bookEntity.setFilePath(filePath);
+
+            bookEntity.setPublishedDate(bookDto.getPublishedDate() != null ? bookDto.getPublishedDate() : LocalDate.now());
+        }
+        bookEntity.setTitle(bookDto.getTitle());
+        bookEntity.setDescription(bookDto.getDescription());
         bookEntity.setGenre(genreEntity);
         bookEntity.setAuthor(authorEntity);
-
-        String filePath = "/files/book_" + (bookRepository.count() + 1) + ".pdf";
-        bookEntity.setFilePath(filePath);
-
         bookRepository.save(bookEntity);
     }
+
 
     public void deleteBook(Long id) {
         bookRepository.deleteById(id);

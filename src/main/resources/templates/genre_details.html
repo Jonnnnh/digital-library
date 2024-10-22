@@ -6,13 +6,15 @@
 </head>
 <body>
 
-<h1>Genre Details</h1>
+<div class="container">
+    <h1>Genre Details</h1>
 
-<div class="genre-detail">
-    <p><strong>Genre Name:</strong> <span th:text="${genre.name}"></span></p>
+    <div class="detail-info">
+        <p><strong>Genre Name:</strong> <span th:text="${genre.name}"></span></p>
+    </div>
+
+    <a th:href="@{/books}" class="btn back-btn">Back to Books</a>
 </div>
-
-<a th:href="@{/books}" class="btn back-btn">Back to Books</a>
 
 <div class="footer">
     <p>Library Management System</p>
