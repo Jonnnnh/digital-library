@@ -2,6 +2,7 @@ package org.example.digital_library.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.digital_library.model.dto.GenreDto;
 import org.example.digital_library.service.GenreService;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @AllArgsConstructor
+@Slf4j
 @RequestMapping("/genres")
 public class GenreController {
 
@@ -28,6 +30,7 @@ public class GenreController {
         if (result.hasErrors()) {
             return "add_genre";
         }
+        log.info("Genre name: {}", genreDto.getName());
         genreService.createGenre(genreDto);
         return "redirect:/books/new";
     }

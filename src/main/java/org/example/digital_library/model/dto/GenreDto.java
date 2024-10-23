@@ -1,5 +1,6 @@
 package org.example.digital_library.model.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 @Setter
@@ -9,5 +10,6 @@ import lombok.*;
 @AllArgsConstructor
 public class GenreDto {
     private Long id;
+    @NotEmpty(message = "Genre name cannot be empty")
     private String name;
 }

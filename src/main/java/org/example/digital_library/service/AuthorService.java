@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class AuthorService {
 
     private final AuthorRepository authorRepository;
-    private final AuthorMapper authorMapper;
+    private final AuthorMapper authorMapper = AuthorMapper.INSTANCE;
 
     public List<AuthorDto> getAllAuthors() {
         List<AuthorEntity> authorEntities = authorRepository.findAll();

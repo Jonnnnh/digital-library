@@ -11,7 +11,7 @@
 
 <form th:action="@{/genres}" method="post" class="form-container">
     <label for="name">Genre Name</label>
-    <input type="text" id="name" name="name" placeholder="Enter genre name" required/>
+    <input type="text" id="name" name="name" placeholder="Enter genre name" th:value="*{name}" required/>
 
     <button type="submit" class="btn save-btn">Add Genre</button>
 </form>

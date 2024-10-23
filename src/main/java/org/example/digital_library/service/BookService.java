@@ -2,6 +2,7 @@ package org.example.digital_library.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.digital_library.mapper.AuthorMapper;
 import org.example.digital_library.mapper.BookMapper;
 import org.example.digital_library.model.dto.BookDto;
 import org.example.digital_library.model.entity.AuthorEntity;
@@ -25,17 +26,17 @@ public class BookService {
     private AuthorRepository authorRepository;
     private GenreRepository genreRepository;
 
-    private final BookMapper bookMapper = new BookMapper();
+    private final BookMapper bookMapper = BookMapper.INSTANCE;
 
     public List<BookDto> getAllBooks(String title, Long authorId, Long genreId) {
         List<BookEntity> books = bookRepository.findBooks(title, authorId, genreId);
         books.forEach(book -> {
-            if (book.getAuthor() != null) {
-                log.info("Book Author Entity: {}", book.getAuthor());
-                log.info("Bookk: {}, Author: {} {}", book.getTitle(), book.getAuthor().getFirstName(), book.getAuthor().getLastName());
-            } else {
-                log.warn("Bookk: {} has no author", book.getTitle());
-            }
+//            if (book.getAuthor() != null) {
+//                log.info("Book Author Entity: {}", book.getAuthor());
+//                log.info("Bookk: {}, Author: {} {}", book.getTitle(), book.getAuthor().getFirstName(), book.getAuthor().getLastName());
+//            } else {
+//                log.warn("Bookk: {} has no author", book.getTitle());
+//            }
         });
         return books.stream()
                 .map(bookMapper::toDto)
@@ -46,7 +47,7 @@ public class BookService {
 
     public BookDto getBookById(Long id) {
         BookEntity bookEntity = bookRepository.findById(id).orElseThrow(() -> new RuntimeException("Book not found"));
-        log.info("Book Author Entity: {}", bookEntity.getAuthor());
+//        log.info("Book Author Entity: {}", bookEntity.getAuthor());
         return bookMapper.toDto(bookEntity);
     }
 

@@ -51,6 +51,6 @@ public class AuthorController {
     public String getAllAuthors(Model model) {
         List<AuthorDto> authorDtos = authorService.getAllAuthors();
         model.addAttribute("authors", authorDtos);
-        return "authors";
+        return "redirect:/books/new";
     }
 }
