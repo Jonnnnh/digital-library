@@ -3,6 +3,7 @@ target/
 data/
 mvnw
 mvnw.cmd
+Dockerfile
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
