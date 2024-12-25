@@ -2,6 +2,7 @@ package org.example.model.dto;
 
 import lombok.*;
 
+@Builder
 @Setter
 @Getter
 @NoArgsConstructor

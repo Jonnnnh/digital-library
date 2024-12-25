@@ -25,7 +25,7 @@ public class BookService {
     private AuthorRepository authorRepository;
     private GenreRepository genreRepository;
 
-    private final BookMapper bookMapper = BookMapper.INSTANCE;
+    private final BookMapper bookMapper;
 
     public List<BookDto> getAllBooks(String title, Long authorId, Long genreId) {
         List<Book> books = bookRepository.findBooks(title, authorId, genreId);

@@ -14,8 +14,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
-    private final UserMapper userMapper = UserMapper.INSTANCE;
+    private final UserMapper userMapper;
 
     public void createUser(UserDto userDto) {
         if (userDto.getUsername() == null || userDto.getUsername().isEmpty()) {

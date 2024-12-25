@@ -1,5 +1,6 @@
 package org.example.service;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.mapper.GenreMapper;
 import org.example.model.dto.GenreDto;
@@ -12,13 +13,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
+@AllArgsConstructor
 @Service
 public class GenreService {
 
     @Autowired
     private GenreRepository genreRepository;
-
-    private final GenreMapper genreMapper = GenreMapper.INSTANCE;
+    private final GenreMapper genreMapper;
 
     public List<GenreDto> getAllGenres() {
         List<Genre> genres = genreRepository.findAll();
