@@ -9,6 +9,9 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = {AuthorMapper.class, GenreMapper.class})
 public interface BookMapper {
     @Mapping(target = "author", source = "author")
+    @Mapping(target = "genre", source = "genre")
     BookDto toDto(Book bookEntity);
+    @Mapping(target = "author", source = "author")
+    @Mapping(target = "genre", source = "genre")
     Book toEntity(BookDto bookDto);
 }

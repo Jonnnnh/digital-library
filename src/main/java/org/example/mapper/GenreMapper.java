@@ -7,7 +7,7 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface GenreMapper {
-    GenreDto toDto(Genre genreEntity);
+    GenreDto toDto(Genre genre);
     Genre toEntity(GenreDto genreDto);
 
 }

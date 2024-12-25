@@ -10,9 +10,10 @@
     <h1>Author Details</h1>
 
     <div class="detail-info">
-        <p><strong>First Name:</strong> <span th:text="${author.firstName}"></span></p>
-        <p><strong>Last Name:</strong> <span th:text="${author.lastName}"></span></p>
-        <p><strong>Birth Date:</strong> <span th:text="${author.birthDate}"></span></p>
+        <p><strong>First Name:</strong> <span th:text="${author.firstName}">Unknown</span></p>
+        <p><strong>Last Name:</strong> <span th:text="${author.lastName}">Unknown</span></p>
+        <p><strong>Birth Date:</strong> <span th:text="${author.birthDate}">Unknown</span></p>
+
     </div>
 
     <a th:href="@{/books}" class="btn back-btn">Back to Books</a>

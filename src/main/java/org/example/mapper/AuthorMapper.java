@@ -7,7 +7,7 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface AuthorMapper {
-    AuthorDto toDto(Author authorEntity);
+    AuthorDto toDto(Author author);
     Author toEntity(AuthorDto authorDto);
 }
 

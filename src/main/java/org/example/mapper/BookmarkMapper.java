@@ -7,6 +7,6 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface BookmarkMapper {
-    BookmarkDto toDto(Bookmark bookmarkEntity);
+    BookmarkDto toDto(Bookmark bookmark);
     Bookmark toEntity(BookmarkDto bookmarkDto);
 }
