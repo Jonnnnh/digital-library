@@ -1,16 +1,13 @@
 package org.example.mapper;
 
 import org.example.model.dto.AuthorDto;
-import org.example.model.entity.AuthorEntity;
+import org.example.model.entity.Author;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.MappingConstants;
 
-@Mapper
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface AuthorMapper {
-    AuthorMapper INSTANCE = Mappers.getMapper(AuthorMapper.class);
-
-    AuthorDto toDto(AuthorEntity authorEntity);
-
-    AuthorEntity toEntity(AuthorDto authorDto);
+    AuthorDto toDto(Author authorEntity);
+    Author toEntity(AuthorDto authorDto);
 }
 

@@ -4,10 +4,9 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@Data
+
 @Setter
 @Getter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class AuthorDto {

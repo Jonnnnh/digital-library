@@ -5,15 +5,14 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Setter
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "books")
-public class BookEntity {
+public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,11 +22,11 @@ public class BookEntity {
 
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
-    private AuthorEntity author;
+    private Author author;
 
     @ManyToOne
     @JoinColumn(name = "genre_id", nullable = false)
-    private GenreEntity genre;
+    private Genre genre;
 
     @Column
     private String description;

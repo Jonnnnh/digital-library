@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.mapper.BookmarkMapper;
 import org.example.model.dto.BookmarkDto;
-import org.example.model.entity.BookmarkEntity;
+import org.example.model.entity.Bookmark;
 import org.example.repository.BookmarkRepository;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ public class BookmarkService {
                 bookmarkDto.getBookId(),
                 bookmarkDto.getUser().getId(),
                 bookmarkDto.getPageNumber());
-        BookmarkEntity bookmarkEntity = bookmarkMapper.toEntity(bookmarkDto);
+        Bookmark bookmarkEntity = bookmarkMapper.toEntity(bookmarkDto);
         if (bookmarkEntity.getUser() == null) {
             log.error("User is null. Cannot save bookmark.");
             throw new RuntimeException("User cannot be null");

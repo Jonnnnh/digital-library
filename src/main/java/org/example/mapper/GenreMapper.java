@@ -1,17 +1,13 @@
 package org.example.mapper;
 
 import org.example.model.dto.GenreDto;
-import org.example.model.entity.GenreEntity;
+import org.example.model.entity.Genre;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.MappingConstants;
 
-@Mapper
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface GenreMapper {
-
-    GenreMapper INSTANCE = Mappers.getMapper(GenreMapper.class);
-
-    GenreDto toDto(GenreEntity genreEntity);
-
-    GenreEntity toEntity(GenreDto genreDto);
+    GenreDto toDto(Genre genreEntity);
+    Genre toEntity(GenreDto genreDto);
 
 }

@@ -5,25 +5,25 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
+@Entity
 @Setter
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Table(name = "bookmarks")
-public class BookmarkEntity {
+public class Bookmark {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity user;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "book_id", nullable = false)
-    private BookEntity book;
+    private Book book;
 
     @Column(nullable = false)
     private int pageNumber;

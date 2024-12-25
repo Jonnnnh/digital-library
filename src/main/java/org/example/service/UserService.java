@@ -3,7 +3,7 @@ package org.example.service;
 import lombok.AllArgsConstructor;
 import org.example.mapper.UserMapper;
 import org.example.model.dto.UserDto;
-import org.example.model.entity.UserEntity;
+import org.example.model.entity.User;
 import org.example.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class UserService {
             throw new IllegalArgumentException("Username cannot be null or empty");
         }
 
-        UserEntity userEntity = new UserEntity();
+        User userEntity = new User();
         userEntity.setUsername(userDto.getUsername());
         userEntity.setEmail(userDto.getEmail());
         userEntity.setPasswordHash(userDto.getPasswordHash());
@@ -31,7 +31,7 @@ public class UserService {
     }
 
     public UserDto findUserByUsername(String username) {
-        UserEntity userEntity = userRepository.findByUsername(username)
+        User userEntity = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found with username: " + username));
 
         return UserDto.builder()

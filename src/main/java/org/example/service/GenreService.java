@@ -3,7 +3,7 @@ package org.example.service;
 import lombok.extern.slf4j.Slf4j;
 import org.example.mapper.GenreMapper;
 import org.example.model.dto.GenreDto;
-import org.example.model.entity.GenreEntity;
+import org.example.model.entity.Genre;
 import org.example.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class GenreService {
     private final GenreMapper genreMapper = GenreMapper.INSTANCE;
 
     public List<GenreDto> getAllGenres() {
-        List<GenreEntity> genres = genreRepository.findAll();
+        List<Genre> genres = genreRepository.findAll();
 //        log.info("Genres fetched: {}", genres);
 //        if (genres == null || genres.isEmpty()) {
 //            log.warn("No genres found in the database.");
@@ -34,14 +34,14 @@ public class GenreService {
     }
 
     public GenreDto getGenreById(Long id) {
-        GenreEntity genre = genreRepository.findById(id)
+        Genre genre = genreRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Genre not found"));
         return new GenreDto(genre.getId(), genre.getName());
     }
 
 
     public void createGenre(GenreDto genreDto) {
-        GenreEntity genreEntity = genreMapper.toEntity(genreDto);
+        Genre genreEntity = genreMapper.toEntity(genreDto);
         genreRepository.save(genreEntity);
     }
 }

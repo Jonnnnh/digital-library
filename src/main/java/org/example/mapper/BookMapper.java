@@ -1,16 +1,12 @@
 package org.example.mapper;
 
 import org.example.model.dto.BookDto;
-import org.example.model.entity.BookEntity;
+import org.example.model.entity.Book;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.MappingConstants;
 
-@Mapper(uses = {AuthorMapper.class, GenreMapper.class})
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = {AuthorMapper.class, GenreMapper.class})
 public interface BookMapper {
-
-    BookMapper INSTANCE = Mappers.getMapper(BookMapper.class);
-
-    BookDto toDto(BookEntity bookEntity);
-
-    BookEntity toEntity(BookDto bookDto);
+    BookDto toDto(Book bookEntity);
+    Book toEntity(BookDto bookDto);
 }
