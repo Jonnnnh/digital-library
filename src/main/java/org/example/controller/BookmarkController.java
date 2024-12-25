@@ -28,7 +28,9 @@ public class BookmarkController {
     @GetMapping("/{bookId}/bookmark/new")
     public String showBookmarkForm(@PathVariable Long bookId, Model model) {
         log.info("Opening bookmark form for book ID: {}", bookId);
-        model.addAttribute("bookmark", new BookmarkDto());
+        BookmarkDto bookmarkDto = new BookmarkDto();
+        bookmarkDto.setBookId(bookId);
+        model.addAttribute("bookmark", bookmarkDto);
         model.addAttribute("bookId", bookId);
         return "bookmark_form";
     }
@@ -55,7 +57,7 @@ public class BookmarkController {
         }
         bookmarkDto.setBookId(bookId);
         bookmarkDto.setUser(userDto);
-        bookmarkDto.setCreateAt(LocalDateTime.now());
+        bookmarkDto.setCreatedAt(LocalDateTime.now());
 
         log.info("Saving bookmark for book ID: {} and user ID: {}", bookId, userDto.getId());
         bookmarkService.addBookmark(bookmarkDto);

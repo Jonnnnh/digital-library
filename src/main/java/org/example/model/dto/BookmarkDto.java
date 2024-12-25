@@ -14,6 +14,6 @@ public class BookmarkDto {
     private Long bookId;
     private String bookTitle;
     private int pageNumber;
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
 }
 
