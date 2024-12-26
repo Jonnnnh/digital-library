@@ -23,12 +23,6 @@ public class GenreService {
 
     public List<GenreDto> getAllGenres() {
         List<Genre> genres = genreRepository.findAll();
-//        log.info("Genres fetched: {}", genres);
-//        if (genres == null || genres.isEmpty()) {
-//            log.warn("No genres found in the database.");
-//        } else {
-//            genres.forEach(genre -> log.info("Loaded Genre from DB - ID: {}, Name: {}", genre.getId(), genre.getName()));
-//        }
         return genres.stream()
                 .map(genre -> new GenreDto(genre.getId(), genre.getName()))
                 .collect(Collectors.toList());
@@ -39,7 +33,6 @@ public class GenreService {
                 .orElseThrow(() -> new RuntimeException("Genre not found"));
         return new GenreDto(genre.getId(), genre.getName());
     }
-
 
     public void createGenre(GenreDto genreDto) {
         Genre genreEntity = genreMapper.toEntity(genreDto);

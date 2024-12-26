@@ -24,7 +24,6 @@ public class GenreController {
         return "add_genre";
     }
 
-
     @PostMapping
     public String addGenre(@ModelAttribute("genre") @Valid GenreDto genreDto, BindingResult result, Model model) {
         if (result.hasErrors()) {

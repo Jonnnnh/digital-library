@@ -1,4 +1,4 @@
-package org.example.controller.until;
+package org.example.exception;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -20,7 +20,6 @@ public class UserService {
         if (userDto.getUsername() == null || userDto.getUsername().isEmpty()) {
             throw new IllegalArgumentException("Username cannot be null or empty");
         }
-
         User userEntity = new User();
         userEntity.setUsername(userDto.getUsername());
         userEntity.setEmail(userDto.getEmail());
@@ -38,5 +37,4 @@ public class UserService {
                 .username(userEntity.getUsername())
                 .build();
     }
-
 }

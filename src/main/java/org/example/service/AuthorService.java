@@ -26,7 +26,6 @@ public class AuthorService {
                 .collect(Collectors.toList());
     }
 
-
     public AuthorDto getAuthorById(Long id) {
         Author entity = authorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Author not found"));

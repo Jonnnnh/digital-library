@@ -27,7 +27,6 @@ public class BookmarkController {
 
     @GetMapping("/{bookId}/bookmark/new")
     public String showBookmarkForm(@PathVariable Long bookId, Model model) {
-        log.info("Opening bookmark form for book ID: {}", bookId);
         BookmarkDto bookmarkDto = new BookmarkDto();
         bookmarkDto.setBookId(bookId);
         model.addAttribute("bookmark", bookmarkDto);

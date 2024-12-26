@@ -1,4 +1,4 @@
-package org.example.controller.until;
+package org.example.exception;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.MethodArgumentNotValidException;

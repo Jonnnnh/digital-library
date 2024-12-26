@@ -39,10 +39,8 @@ public class AuthorController {
     public String getAuthorById(@PathVariable Long id, Model model) {
         AuthorDto authorDto = authorService.getAuthorById(id);
         if (authorDto == null) {
-            log.warn("Author with ID {} not found", id);
             return "error";
         }
-        log.info("Author details: {} {}", authorDto.getFirstName(), authorDto.getLastName());
         model.addAttribute("author", authorDto);
         return "author_details";
     }

@@ -30,12 +30,6 @@ public class BookService {
     public List<BookDto> getAllBooks(String title, Long authorId, Long genreId) {
         List<Book> books = bookRepository.findBooks(title, authorId, genreId);
         books.forEach(book -> {
-//            if (book.getAuthor() != null) {
-//                log.info("Book Author Entity: {}", book.getAuthor());
-//                log.info("Bookk: {}, Author: {} {}", book.getTitle(), book.getAuthor().getFirstName(), book.getAuthor().getLastName());
-//            } else {
-//                log.warn("Bookk: {} has no author", book.getTitle());
-//            }
         });
         return books.stream()
                 .map(bookMapper::toDto)
@@ -43,10 +37,8 @@ public class BookService {
     }
 
 
-
     public BookDto getBookById(Long id) {
         Book bookEntity = bookRepository.findById(id).orElseThrow(() -> new RuntimeException("Book not found"));
-//        log.info("Book Author Entity: {}", bookEntity.getAuthor());
         return bookMapper.toDto(bookEntity);
     }
 
@@ -55,9 +47,7 @@ public class BookService {
                 .orElseThrow(() -> new RuntimeException("Genre not found"));
         Author authorEntity = authorRepository.findById(bookDto.getAuthor().getId())
                 .orElseThrow(() -> new RuntimeException("Author not found"));
-
         Book bookEntity;
-
         if (bookDto.getId() != null) {
             bookEntity = bookRepository.findById(bookDto.getId())
                     .orElseThrow(() -> new RuntimeException("Book not found"));
